@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 
 const User = require('./models/User');  // Adjust this path as necessary
+const Task = require('./models/Task');  // Adjust this path as necessary
 
 // MongoDB connection
 mongoose.connect('mongodb://localhost:27017/task-manager')
@@ -14,6 +15,7 @@ mongoose.connect('mongodb://localhost:27017/task-manager')
 app.use(cors());
 app.use(express.json());
 
+// POST /login (Login User)
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -30,8 +32,68 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// POST /users (Create New User)
+app.post('/users', async (req, res) => {
+  const { name, email, password } = req.body;
+
+  // Check if all fields are provided
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: 'Name, email, and password are required' });
+  }
+
+  // Check if the user already exists
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    return res.status(400).json({ message: 'User with this email already exists' });
+  }
+
+  try {
+    // Create new user
+    const newUser = new User({ name, email, password });
+
+    // Save the user to the database
+    await newUser.save();
+
+    // Send the newly created user as a response
+    res.status(201).json(newUser);
+  } catch (error) {
+    console.error('Error creating user:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// POST /tasks (Create a New Task)
+app.post('/tasks', async (req, res) => {
+  const { title, description, assignedTo, dueDate, priority, createdBy } = req.body; // ✅ Add priority and createdBy
+
+  const user = await User.findById(assignedTo);
+  if (!user) {
+    return res.status(400).json({ message: 'User not found' });
+  }
+
+  try {
+    const newTask = new Task({
+      title,
+      description,
+      assignedTo,
+      dueDate,
+      priority,    // ✅ Now defined
+      createdBy,   // ✅ Make sure it's passed too
+    });
+
+    await newTask.save();
+    res.status(201).json(newTask);
+  } catch (error) {
+    console.error('Error creating task:', error);
+    res.status(500).json({ error: 'Server error', details: error.message });
+  }
+});
+
+
+// GET /tasks/:userId (Fetch tasks assigned to a user)
 app.get('/tasks/:userId', async (req, res) => {
   const { userId } = req.params;
+
   try {
     const tasks = await Task.find({ assignedTo: userId });
     res.status(200).json(tasks);
@@ -40,6 +102,33 @@ app.get('/tasks/:userId', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+// Example route
+app.get('/tasks/createdby/:userId', async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const tasks = await Task.find({ createdBy: userId }).populate('assignedTo', 'name');
+
+    res.json(tasks);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch tasks' });
+  }
+});
+
+// Backend (Node.js/Express)
+app.patch('/tasks/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const updatedTask = await Task.findByIdAndUpdate(id, { status }, { new: true });
+    res.json(updatedTask);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update task' });
+  }
+});
+
+
+
 
 // Route to fetch users
 app.get('/users', async (req, res) => {
@@ -52,89 +141,8 @@ app.get('/users', async (req, res) => {
   }
 });
 
-// Start server
+// Start the server
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
-});
-
-
-// In your server.js or wherever you're defining routes
-
-const Task = require('./models/Task'); // Import the Task model
-
-// Create a new task
-// app.post('/tasks', async (req, res) => {
-//   const { title, description, assignedTo } = req.body;
-
-//   try {
-//     const newTask = new Task({
-//       title,
-//       description,
-//       assignedTo,
-//     });
-
-//     await newTask.save();
-//     res.status(201).json(newTask); // Send back the newly created task
-//   } catch (error) {
-//     console.error('Error creating task:', error);
-//     res.status(500).json({ error: 'Server error' });
-//   }
-// });
-
-app.post('/tasks', async (req, res) => {
-  const { title, description, assignedTo } = req.body;
-
-  // Check if the user exists
-  const user = await User.findById(assignedTo);
-  if (!user) {
-    return res.status(400).json({ message: 'User not found' });
-  }
-
-  try {
-    const newTask = new Task({
-      title,
-      description,
-      assignedTo,
-    });
-
-    await newTask.save();
-    res.status(201).json(newTask);  // Send back the newly created task
-  } catch (error) {
-    console.error('Error creating task:', error);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
-
-app.post('/users', async (req, res) => {
-  const { name, email,password } = req.body;
-
-  // Check if all fields are provided
-  if (!name || !email) {
-    return res.status(400).json({ message: 'Name and email are required' });
-  }
-
-  // Check if the user already exists
-  const existingUser = await User.findOne({ email });
-  if (existingUser) {
-    return res.status(400).json({ message: 'User with this email already exists' });
-  }
-
-  try {
-    // Create new user
-    const newUser = new User({
-      name,
-      email,
-      password,
-    });
-
-    // Save the user to the database
-    await newUser.save();
-
-    // Send the newly created user as a response
-    res.status(201).json(newUser);
-  } catch (error) {
-    console.error('Error creating user:', error); // Log detailed error
-    res.status(500).json({ error: 'Server error', message: error.message });
-  }
 });

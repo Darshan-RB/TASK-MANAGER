@@ -1,0 +1,126 @@
+.create-task-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .create-task-container h1,
+  .create-task-container h3 {
+    margin-bottom: 1.5rem;
+    animation: slideUp 0.5s ease;
+  }
+  
+  .create-task-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .create-task-container label {
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+    color: #333;
+    margin: 0 0 10px 0;
+  }
+  
+  .create-task-container input[type="text"],
+  .create-task-container textarea,
+  .create-task-container select {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  .create-task-container input:focus,
+  .create-task-container textarea:focus,
+  .create-task-container select:focus {
+    border-color: #007bff;
+  }
+  
+  .create-task-container textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  
+  
+  .create-task-container button {
+    padding: 0.8rem 2rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 1rem;
+  }
+
+  .create-task-container input[type="url"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  
+  .create-task-container label {
+    font-weight: bold;
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    color: #333;
+  }
+  
+  
+  .create-task-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  .create-task-container button + button {
+    background-color: #000;
+    margin-left: 0.5rem;
+  }
+  
+  .create-task-container button + button:hover {
+    background-color: #222;
+  }
+  
+  .create-task-container .react-datepicker-wrapper {
+    width: 100%;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './Register.css'; 
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -9,7 +10,7 @@ const Register = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate(); // useNavigate hook for navigation
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,14 +18,14 @@ const Register = () => {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5000/users', {
+      await axios.post('http://localhost:5000/users', {
         name,
         email,
         password,
       });
 
       setLoading(false);
-      navigate('/login'); // Redirect to login page after successful registration
+      navigate('/login');
     } catch (err) {
       setLoading(false);
       setError(err.response?.data?.message || 'Registration failed');
@@ -32,39 +33,49 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="register-container">
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name</label>
+        <div className="form-group">
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            placeholder=" "
             required
           />
+          <label>Name</label>
         </div>
-        <div>
-          <label>Email</label>
+        <div className="form-group">
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            placeholder=" "
             required
           />
+          <label>Email</label>
         </div>
-        <div>
-          <label>Password</label>
+        <div className="form-group">
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder=" "
             required
           />
+          <label>Password</label>
         </div>
-        {error && <div style={{ color: 'red' }}>{error}</div>}
+        {error && <div className="error">{error}</div>}
         <button type="submit" disabled={loading}>
           {loading ? 'Registering...' : 'Register'}
+        </button>
+        <button
+          className="login"
+          type="button"
+          onClick={() => navigate('/login')}
+        >
+          Login
         </button>
       </form>
     </div>

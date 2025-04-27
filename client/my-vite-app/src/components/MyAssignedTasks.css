@@ -1,0 +1,90 @@
+.my-assigned-tasks {
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .my-assigned-tasks h2 {
+    font-size: 2rem;
+    text-align: center;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  .status-completed {
+    color: green;
+    font-weight: bold;
+    font-size: large;
+  }
+  
+  .status-default {
+    color: black; /* Or any default color */
+  }
+  
+  
+  .my-assigned-tasks ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .my-assigned-tasks li {
+    background-color: #ffffff;
+    padding: 1.2rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #007bff;
+  }
+  
+  .my-assigned-tasks li strong {
+    font-size: 1.4rem;
+    color: #007bff;
+  }
+  
+  .my-assigned-tasks li p {
+    color: #555;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+  }
+  
+  .my-assigned-tasks li .due-date {
+    color: #777;
+    font-size: 1rem;
+  }
+  
+  .my-assigned-tasks li .priority {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+  }
+  
+  .my-assigned-tasks li .priority-high {
+    color: #dc3545; /* Red for High priority */
+  }
+  
+  .my-assigned-tasks li .priority-medium {
+    color: #ffc107; /* Yellow for Medium priority */
+  }
+  
+  .my-assigned-tasks li .priority-low {
+    color: #28a745; /* Green for Low priority */
+  }
+  
+  .my-assigned-tasks li .no-tasks-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  

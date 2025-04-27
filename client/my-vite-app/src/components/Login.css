@@ -1,0 +1,127 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 0.6s ease-out;
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .login-container h1 {
+    margin-bottom: 2rem;
+    animation: slideUp 0.5s ease;
+  }
+  
+  /* Scoped form group styling */
+  .login-container .form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    max-width: 320px;
+  }
+  
+  .login-container .form-group input {
+    width: 100%;
+    padding: 1rem 0.5rem;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    background: transparent;
+    outline: none;
+    transition: all 0.3s;
+  }
+  
+  .login-container .form-group input:focus {
+    border-color: #007bff;
+  }
+  
+  .login-container .form-group label {
+    position: absolute;
+    left: 0.5rem;
+    top: 1rem;
+    font-size: 1rem;
+    color: #aaa;
+    pointer-events: none;
+    transition: all 0.3s;
+  }
+  
+  .login-container .form-group input:focus + label,
+  .login-container .form-group input:not(:placeholder-shown) + label {
+    top: -0.5rem;
+    font-size: 0.8rem;
+    color: #007bff;
+    background: white;
+    padding: 0 0.2rem;
+  }
+  
+  /* Scoped button */
+  .login-container button {
+    padding: 0.7rem 2rem;
+    background: #007bff;
+    border: none;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin:10px;
+  }
+  .login-container button.reg {
+    padding: 0.7rem 2rem;
+    background: #000000;
+    border: none;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  
+  .login-container button:hover {
+    background: #0056b3;
+  }
+  
+  /* Error style */
+  .login-container .error {
+    color: red;
+    margin-bottom: 1rem;
+    animation: shake 0.4s;
+  }
+  
+  /* Animations */
+  @keyframes slideUp {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-5px);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+    75% {
+      transform: translateX(-5px);
+    }
+  }
+  
