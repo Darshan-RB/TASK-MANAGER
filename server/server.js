@@ -89,6 +89,25 @@ app.post('/tasks', async (req, res) => {
   }
 });
 
+// DELETE /tasks/:taskId → Delete a task by ID
+app.delete('/tasks/:taskId', async (req, res) => {
+  const { taskId } = req.params;
+
+  try {
+    const deletedTask = await Task.findByIdAndDelete(taskId);
+
+    if (!deletedTask) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+
+    res.json({ message: 'Task deleted successfully', task: deletedTask });
+  } catch (error) {
+    console.error('Error deleting task:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 
 // GET /tasks/:userId (Fetch tasks assigned to a user)
 app.get('/tasks/:userId', async (req, res) => {
