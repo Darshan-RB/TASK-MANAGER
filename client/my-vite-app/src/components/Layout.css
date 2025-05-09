@@ -1,0 +1,34 @@
+.layout-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .sidebar-menu {
+    width: 220px;
+    background: #2c3e50;
+    color: white;
+    padding: 20px;
+  }
+  
+  .sidebar-menu button {
+    width: 100%;
+    margin: 8px 0;
+    padding: 10px;
+    background: #34495e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+  }
+  
+  .sidebar-menu button:hover {
+    background: #3d5a73;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 30px;
+    background: #f4f4f4;
+  }
+  

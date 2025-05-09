@@ -62,6 +62,15 @@ const TaskList = () => {
                       </a>
                     </p>
                   )}
+                  {task.link && (
+  <p>
+    <strong>Link:</strong>{' '}
+    <a href={task.link} target="_blank" rel="noopener noreferrer">
+      {task.link}
+    </a>
+  </p>
+)}
+
                 </li>
               ))}
             </ul>

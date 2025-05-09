@@ -30,9 +30,11 @@ const MyAssignedTasks = () => {
               Due: {new Date(task.dueDate).toLocaleDateString()} | Priority: {task.priority}
               <p>{task.description}</p>
               <p><strong>Status:</strong>{' '} 
-              <span className={task.status==='Completed' ? 'status-completed':'status-default'}>
-                {task.status || 'Not updated'}</span>
-                </p>
+              <span className={task.status === 'Completed' ? 'status-completed' : task.status === 'In-Progress' ? 'status-inprogress' : 'status-default'}>
+                {task.status || 'Not updated'}
+              </span>
+            </p>
+
 
             </li>
           ))}

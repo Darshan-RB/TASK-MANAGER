@@ -27,6 +27,8 @@
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   
   .user-tasks-container li:hover {
@@ -108,5 +110,28 @@
   
   .inprogress-btn:hover {
     background-color: #d78e0a;
+  }
+  
+  .delete-btn {
+    background-color: #f31212;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+  }
+
+  .delete-btn:hover {
+    background-color: #c50a0ae1;
+  }
+
+  .assign-btn {
+    background-color: #007bff;
+    color: rgb(0, 0, 0);
+    border: none;
+    margin-left: 8px;
+    padding: 5px 10px;
+    border-radius: 4px;
   }
   

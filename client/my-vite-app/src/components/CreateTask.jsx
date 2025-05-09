@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './CreateTask.css';
+import { Link } from 'react-router-dom';
 
 
 
@@ -20,6 +21,7 @@ const CreateTask = () => {
   const [priority, setPriority] = useState('');
   const [userName, setUserName] = useState('');
   const [link, setLink] = useState('');
+  
 
 
 
@@ -67,6 +69,7 @@ const CreateTask = () => {
       dueDate: dueDate ,// ✅ add dueDate here
       priority: priority,
       createdBy: createdBy,
+      link: link,
     };
   
     setLoading(true);
@@ -79,6 +82,7 @@ const CreateTask = () => {
         setSelectedUser('');
         setDueDate(null); // ✅ clear calendar input
         setPriority('');
+        setLink('');
       })
       .catch(error => {
         setLoading(false);
@@ -98,8 +102,30 @@ const CreateTask = () => {
 
   return (
     <div className="create-task-container">
-      <div className="box"></div>
+      {/* <div className="sidebar-menu">
       <h3>Welcome, {userName}</h3>
+      <button onClick={handleViewMyTasks}>📋 My Tasks</button>
+      <button onClick={() => navigate('/assigned-tasks')}>🧾 Assigned Tasks</button>
+      <button
+  onClick={() => {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      navigate(`/completed-tasks/${userId}`);
+    } else {
+      alert('Login required to view completed tasks.');
+    }
+  }}
+>
+  ✅ View Completed Tasks
+</button>
+<button onClick={() => navigate('/login')}>Logout</button>
+
+    </div> */}
+
+    <div className="task-form-content">
+      
+      <div className="box"></div>
+      
 
       <h1>Create New Task</h1>
       
@@ -166,11 +192,10 @@ const CreateTask = () => {
           {loading ? 'Creating Task...' : 'Create Task'}
         </button>
       </form>
+      </div>
 
-      <br />
-      <button onClick={handleViewMyTasks}>View My Tasks</button>
-      <button onClick={() => navigate('/assigned-tasks')}>Tasks Assigned By Me</button>
       
+    
 
     </div>
   );

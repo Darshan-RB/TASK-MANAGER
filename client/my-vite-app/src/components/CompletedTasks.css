@@ -1,0 +1,95 @@
+/* CompletedTasks.css */
+
+.completed-tasks-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .completed-tasks-container h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #333;
+  }
+  
+  .prio {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    color: white;
+    background-color: #ff9800;
+    font-size: 0.9rem;
+    text-align: center;
+    margin: 0 auto;  /* center horizontally if block or inline-block */
+  }
+  
+  .parent-container {
+    text-align: center;
+  }
+  
+  
+  /* Optional: different colors based on text content */
+  .prio.high {
+    background-color: #e53935; /* red for high priority */
+  }
+  
+  .prio.medium {
+    background-color: #ff9800; /* orange for medium */
+  }
+  
+  .prio.low {
+    background-color: #4caf50; /* green for low */
+  }
+  
+  .completed-tasks-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .completed-tasks-container li {
+    background: #f8f9fa;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .completed-tasks-container li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+  
+  .completed-tasks-container li strong {
+    color: #2c3e50;
+    font-size: 1.1rem;
+  }
+  
+  .completed-tasks-container li em {
+    display: block;
+    margin-top: 8px;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+  }
+  
+  .completed-tasks-container p {
+    text-align: center;
+    color: #888;
+    font-size: 1rem;
+  }
+  
+  @media (max-width: 500px) {
+    .completed-tasks-container {
+      padding: 20px;
+    }
+  
+    .completed-tasks-container li {
+      padding: 12px 16px;
+    }
+  }
+  

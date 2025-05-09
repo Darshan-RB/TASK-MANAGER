@@ -18,6 +18,12 @@
     font-weight: bold;
     font-size: large;
   }
+
+  .status-inprogress {
+    color: orange;
+    font-weight: bold;
+    font-size: large;
+  }
   
   .status-default {
     color: black; /* Or any default color */
@@ -47,6 +53,8 @@
     color: #555;
     font-size: 1rem;
     margin-top: 0.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   
   .my-assigned-tasks li .due-date {
