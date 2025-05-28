@@ -104,6 +104,9 @@ https://your-backend-url.elasticbeanstalk.com
 
 ---
 
+## Demo Video
+https://www.loom.com/share/83f0a75f9488483e86b80aae630e36a8?sid=313df41b-dfbd-47b8-bff8-b5021df29478
+
 ## Credits
 
 This project is a part of a hackathon run by  
