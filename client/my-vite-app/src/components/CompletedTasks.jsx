@@ -15,7 +15,7 @@ const CompletedTasks = () => {
 
   const fetchCompletedTasks = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/tasks/${userId}`);
+      const res = await axios.get(`http://tmown-env.eba-pbzuac8g.ap-south-1.elasticbeanstalk.com/tasks/${userId}`);
       const completed = res.data.filter(task => task.status === 'Completed');
       setCompletedTasks(completed);
       setLoading(false);

@@ -1,14 +1,17 @@
 .layout-container {
     display: flex;
     min-height: 100vh;
+    
   }
   
   .sidebar-menu {
-    width: 220px;
-    background: #2c3e50;
-    color: white;
-    padding: 20px;
-  }
+  width: 220px;
+  background: #2c3e50;
+  color: white;
+  padding: 20px;
+  font-weight: bold; 
+}
+
   
   .sidebar-menu button {
     width: 100%;
@@ -20,15 +23,19 @@
     border-radius: 8px;
     cursor: pointer;
     text-align: left;
+    font-weight: bold; 
   }
   
   .sidebar-menu button:hover {
     background: #3d5a73;
+    font-weight: bold; 
+
   }
   
   .main-content {
     flex: 1;
     padding: 30px;
     background: #f4f4f4;
+    
   }
   

@@ -10,7 +10,7 @@ const TaskList = () => {
   // Fetch tasks from the backend
   useEffect(() => {
     axios
-      .get('http://localhost:5000/tasks') // Adjust the URL if necessary
+      .get('http://tmown-env.eba-pbzuac8g.ap-south-1.elasticbeanstalk.com/tasks') // Adjust the URL if necessary
       .then((response) => {
         setTasks(response.data);
         setLoading(false);

@@ -3,9 +3,34 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 require('dotenv').config();
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const User = require('./models/User');  // Adjust this path as necessary
 const Task = require('./models/Task');  // Adjust this path as necessary
+
+
+// app.get('/auth/github/callback',
+//   passport.authenticate('github', { failureRedirect: '/login' }),
+//   (req, res) => {
+//     // Successful authentication, respond with JWT and user JSON
+//     const token = jwt.sign(
+//       { id: req.user._id, name: req.user.name, email: req.user.email },
+//       process.env.JWT_SECRET,
+//       { expiresIn: '1d' }
+//     );
+
+//     res.json({
+//       user: {
+//         id: req.user._id,
+//         name: req.user.name,
+//         email: req.user.email,
+//       },
+//       token,
+//     });
+//   }
+// );
+
 
 // MongoDB connection
 // mongoose.connect('mongodb://localhost:27017/task-manager')
@@ -21,55 +46,97 @@ mongoose.connect(process.env.MONGO_URI, {
 
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'http://todotaskbucket.s3-website.ap-south-1.amazonaws.com', // or specify exact domain like 'http://todotaskbucket.s3-website.ap-south-1.amazonaws.com'
+  credentials: true,
+}));
+
 app.use(express.json());
 
 // POST /login (Login User)
+
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const user = await User.findOne({ email });
-    if (!user || user.password !== password) {
-      return res.status(400).json({ message: 'Invalid email or password' });
-    }
+    if (!user) return res.status(400).json({ message: 'Invalid email or password' });
 
-    res.status(200).json({ message: 'Login successful', user });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
+
+    const payload = {
+      userId: user._id, 
+      email: user.email,
+      name: user.name,
+    };
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(200).json({
+      token,
+      user: payload, // 👈 Make sure it's "user", not "user.user"
+    });
   } catch (error) {
-    console.error('Login error:', error);
+    console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 });
 
-// POST /users (Create New User)
-app.post('/users', async (req, res) => {
-  const { name, email, password } = req.body;
+app.post('/google-login', async (req, res) => {
+  const { name, email } = req.body;
 
-  // Check if all fields are provided
-  if (!name || !email || !password) {
-    return res.status(400).json({ message: 'Name, email, and password are required' });
-  }
-
-  // Check if the user already exists
-  const existingUser = await User.findOne({ email });
-  if (existingUser) {
-    return res.status(400).json({ message: 'User with this email already exists' });
-  }
+  if (!name || !email) return res.status(400).json({ message: 'Missing name or email' });
 
   try {
-    // Create new user
-    const newUser = new User({ name, email, password });
+    let user = await User.findOne({ email });
 
-    // Save the user to the database
-    await newUser.save();
+    if (!user) {
+      const randomPassword = Math.random().toString(36).slice(-8);
+      const hashedPassword = await bcrypt.hash(randomPassword, 10);
+      user = await User.create({ name, email, password: hashedPassword });
+    }
 
-    // Send the newly created user as a response
-    res.status(201).json(newUser);
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+
+    res.json({ user, token });
   } catch (error) {
-    console.error('Error creating user:', error);
-    res.status(500).json({ error: 'Server error' });
+    console.error('Google login error:', error);
+    res.status(500).json({ message: 'Server error during Google login' });
   }
 });
+
+
+
+// POST /users (Create New User)
+
+app.post('/users', async (req, res) => {
+  const { name, email, password } = req.body;
+  console.log('Register request:', { name, email, password });
+
+  if (!name || !email || !password)
+    return res.status(400).json({ message: 'Name, email, and password required' });
+
+  const existingUser = await User.findOne({ email });
+  if (existingUser)
+    return res.status(400).json({ message: 'User with this email already exists' });
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ name, email, password: hashedPassword });
+    await newUser.save();
+
+    const token = jwt.sign({ id: newUser._id, name: newUser.name }, process.env.JWT_SECRET, {
+      expiresIn: '1d',
+    });
+
+    res.status(201).json({ token, user: { id: newUser._id, name: newUser.name, email: newUser.email } });
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 
 // POST /tasks (Create a New Task)
 app.post('/tasks', async (req, res) => {

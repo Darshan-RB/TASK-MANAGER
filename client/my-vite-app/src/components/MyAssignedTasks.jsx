@@ -12,7 +12,7 @@ const MyAssignedTasks = () => {
       return;
     }
 
-    axios.get(`http://localhost:5000/tasks/createdby/${userId}`)
+    axios.get(`http://tmown-env.eba-pbzuac8g.ap-south-1.elasticbeanstalk.com/tasks/createdby/${userId}`)
       .then((res) => setTasks(res.data))
       .catch((err) => console.error('Error fetching tasks:', err));
   }, []);

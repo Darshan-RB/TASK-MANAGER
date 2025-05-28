@@ -32,7 +32,7 @@ const CreateTask = () => {
       const name=localStorage.getItem('userName');
       if (name) setUserName(name);
 
-      axios.get('http://localhost:5000/users')
+      axios.get('http://tmown-env.eba-pbzuac8g.ap-south-1.elasticbeanstalk.com/users')
       .then(response => setUsers(response.data))
         .catch(error => {
           console.error('Error fetching users:', error);
@@ -41,7 +41,7 @@ const CreateTask = () => {
 
 
   useEffect(() => {
-    axios.get('http://localhost:5000/users')
+    axios.get('http://tmown-env.eba-pbzuac8g.ap-south-1.elasticbeanstalk.com/users')
       .then(response => {
         setUsers(response.data);
       })
@@ -73,7 +73,7 @@ const CreateTask = () => {
     };
   
     setLoading(true);
-    axios.post('http://localhost:5000/tasks', taskData)
+    axios.post('http://tmown-env.eba-pbzuac8g.ap-south-1.elasticbeanstalk.com/tasks', taskData)
       .then(response => {
         setLoading(false);
         console.log('Task created:', response.data);
@@ -175,15 +175,15 @@ const CreateTask = () => {
   <option value="Medium">Medium</option>
   <option value="Low">Low</option>
 </select></div>
-<div>
+{/* <div>
   <label>Link:</label>
   <input
     type="url"
     value={link}
     onChange={(e) => setLink(e.target.value)}
-    placeholder="Enter a link (optional)"
+    placeholder="Enter a link "
   />
-</div>
+</div> */}
 
 
 </div>

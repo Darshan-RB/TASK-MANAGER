@@ -12,25 +12,38 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setError('');
 
-    try {
-      await axios.post('http://localhost:5000/users', {
-        name,
-        email,
-        password,
-      });
+  try {
+    const response = await axios.post(
+  'http://tmown-env.eba-pbzuac8g.ap-south-1.elasticbeanstalk.com/users',
+  {
+    name,
+    email,
+    password,
+  }
+);
 
-      setLoading(false);
-      navigate('/login');
-    } catch (err) {
-      setLoading(false);
-      setError(err.response?.data?.message || 'Registration failed');
-    }
-  };
+
+    // Store token and user info from response
+    localStorage.setItem('token', response.data.token);
+    localStorage.setItem('userId', response.data.user.id);
+    localStorage.setItem('userName', response.data.user.name);
+
+    setLoading(false);
+    navigate('/login');  // Navigate to protected page after registration
+  } 
+  catch (err) {
+  setLoading(false);
+  console.error('Registration error:', err.response || err);
+  setError(err.response?.data?.message || 'Registrationsss failed');
+}
+
+};
+
 
   return (
     <div className="register-container">

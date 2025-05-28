@@ -8,13 +8,14 @@ import UserTasks from './components/UserTasks'; // Import UserTasks component
 import MyAssignedTasks from './components/MyAssignedTasks';
 import CompletedTasks from './components/CompletedTasks'; // ← import the component
 import Layout from './components/Layout';
+import GithubSuccess from './components/GithubSuccess';
 
 
 function App() {
   return (
     <Router>
       <div className="App">
-      <h1 style={{ textAlign: 'center' }}>Task Mate</h1>
+      <h1 style={{ textAlign: 'center' }}>Task Manager</h1>
 
         <Routes>
         <Route path="/" element={<Login />} />
@@ -22,6 +23,7 @@ function App() {
           {/* Routes for Authentication */}
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+           <Route path="/github-success" element={<GithubSuccess />} />
 
           {/* Routes for Task Management */}
           <Route element={<Layout />}>

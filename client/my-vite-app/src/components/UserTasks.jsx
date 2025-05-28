@@ -19,7 +19,7 @@ useEffect(() => {
 
 const fetchUsers = async () => {
   try {
-    const res = await axios.get('http://localhost:5000/users'); // adjust endpoint
+    const res = await axios.get('http://tmown-env.eba-pbzuac8g.ap-south-1.elasticbeanstalk.com/users'); // adjust endpoint
     setUsers(res.data);
   } catch (err) {
     console.error('Failed to fetch users:', err);
@@ -33,7 +33,7 @@ const fetchUsers = async () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/tasks/${userId}`);
+      const res = await axios.get(`http://tmown-env.eba-pbzuac8g.ap-south-1.elasticbeanstalk.com/tasks/${userId}`);
       setTasks(res.data);
       setLoading(false);
     } catch (err) {
@@ -45,7 +45,7 @@ const fetchUsers = async () => {
   // ✅ ADD THIS FUNCTION
   const handleStatusUpdate = async (taskId, newStatus) => {
     try {
-      await axios.patch(`http://localhost:5000/tasks/${taskId}`, { status: newStatus });
+      await axios.patch(`http://tmown-env.eba-pbzuac8g.ap-south-1.elasticbeanstalk.com/tasks/${taskId}`, { status: newStatus });
       // After updating, refetch tasks to refresh the page
       fetchTasks();
     } catch (err) {
@@ -57,7 +57,7 @@ const fetchUsers = async () => {
 
   const handleDeleteTask = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:5000/tasks/${taskId}`);
+      await axios.delete(`http://tmown-env.eba-pbzuac8g.ap-south-1.elasticbeanstalk.com/tasks/${taskId}`);
       fetchTasks(); // refresh after deletion
     } catch (err) {
       console.error('Failed to delete task:', err);
@@ -66,7 +66,7 @@ const fetchUsers = async () => {
 
   const handleAssignTask = async (taskId, userId) => {
     try {
-      await axios.patch(`http://localhost:5000/tasks/${taskId}/assign`, { userId });
+      await axios.patch(`http://tmown-env.eba-pbzuac8g.ap-south-1.elasticbeanstalk.com/tasks/${taskId}/assign`, { userId });
       fetchTasks(); // refresh task list
     } catch (err) {
       console.error('Failed to assign task:', err);
@@ -100,7 +100,7 @@ const fetchUsers = async () => {
               <button className="delete-btn" onClick={() => handleDeleteTask(task._id)}>
                 Delete
               </button>
-              <select
+              {/* <select
   value={selectedUser[task._id] || ''}
   onChange={(e) => setSelectedUser({ ...selectedUser, [task._id]: e.target.value })}
 >
@@ -108,15 +108,15 @@ const fetchUsers = async () => {
   {users.map((user) => (
     <option key={user._id} value={user._id}>{user.username}</option>
   ))}
-</select>
+</select> */}
 
-<button
+{/* <button
   className="assign-btn"
   onClick={() => handleAssignTask(task._id, selectedUser[task._id])}
   disabled={!selectedUser[task._id]}
 >
   Assign
-</button>
+</button> */}
 
             </li>
           ))}
