@@ -1,69 +1,93 @@
-# Task Manager
-This project is a part of a hackathon run by https://www.katomaran.com
+# Task Manager Web App
 
-This is a full-stack task management application that allows users to register, login, create tasks, assign them to users, and update task statuses.
+A full-stack MERN (MongoDB, Express, React, Node.js) application for managing tasks within a team.
+
+## Live Website
+
+🌐 [http://todotaskbucket.s3-website.ap-south-1.amazonaws.com/](http://todotaskbucket.s3-website.ap-south-1.amazonaws.com/)
 
 ## Features
 
-- User registration and login with email/password and Google OAuth.
-- Task creation, assignment, and status update.
-- View tasks assigned to or created by a user.
-- JWT-based authentication for secure API access.
-- RESTful API built with Node.js, Express, and MongoDB.
-- Frontend built with React.
+- User authentication (Email/password, Google OAuth)
+- Create, assign, and delete tasks
+- Task filtering by status
+- Separate views for tasks assigned by and to the user
+- GitHub login removed due to requirement changes
+
+## Tech Stack
+
+- **Frontend**: React (Vite) – hosted on **AWS S3**
+- **Backend**: Node.js + Express – deployed via **AWS Elastic Beanstalk**
+- **Database**: **MongoDB Atlas**
 
 ## Setup Instructions
 
-1. Clone the repository:
-git clone https://github.com/your-username/task-manager.git
-cd task-manager
+### 1. Clone the repository
 
-markdown
+```bash
+git clone https://github.com/YourUsername/YourRepoName.git
+cd YourRepoName
+2. Set up environment variables
+Create a .env file in the server/ directory with the following:
+
+env
 Copy
 Edit
-
-2. Install dependencies in both backend and frontend folders:
+MONGO_URI=your_mongo_connection_string
+JWT_SECRET=your_jwt_secret
+3. Install dependencies
+bash
+Copy
+Edit
+# In root directory
 cd server
 npm install
-cd ../client
+
+cd ../client/my-vite-app
 npm install
-
-markdown
+4. Run locally
+bash
 Copy
 Edit
+# Start backend
+cd server
+node server.js
 
-3. Create a `.env` file in the `server` folder with:
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
+# Start frontend
+cd ../client/my-vite-app
+npm run dev
+5. Deployment
+Frontend is hosted on AWS S3
+http://todotaskbucket.s3-website.ap-south-1.amazonaws.com/
 
-markdown
+Backend is deployed to AWS Elastic Beanstalk
+
+MongoDB Atlas is used for cloud database storage
+
+API Base URL
+Update your frontend API requests to point to your Elastic Beanstalk backend URL like:
+
+txt
 Copy
 Edit
+https://your-backend-url.elasticbeanstalk.com
+Assumptions
+AWS setup (S3 and Elastic Beanstalk) is already configured and deployed
 
-4. Start backend server:
-npm start
+MongoDB Atlas is properly set up with network access
 
-pgsql
-Copy
-Edit
+Environment variables are securely stored on the backend
 
-5. Start frontend development server (in the client folder):
-npm start
+React app build files are uploaded to the correct S3 bucket
 
-pgsql
-Copy
-Edit
+Credits
+This project is a part of a hackathon run by
+https://www.katomaran.com
 
-## Assumptions
+Replace `YourUsername/YourRepoName` and backend URL as needed. Let me know if you want the backend deployed URL added too.
 
-- The project uses MongoDB Atlas, with the connection string provided via `MONGO_URI` environment variable.
-- JWT secret key is set in `JWT_SECRET` environment variable.
-- Google OAuth credentials and configuration are properly set up.
-- Frontend and backend are run separately; CORS is enabled on backend for frontend domain.
-- Node.js version 16 or above is used.
-- The UI expects the backend API to be running at `http://localhost:5000`.
-- The project will be deployed on AWS or a similar cloud platform later.
 
----
 
-This project is a part of a hackathon run by https://www.katomaran.com
+
+
+
