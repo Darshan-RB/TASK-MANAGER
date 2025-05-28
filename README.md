@@ -37,8 +37,9 @@ A full-stack MERN (MongoDB, Express, React, Node.js) application for managing ta
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YourUsername/YourRepoName.git
-cd YourRepoName
+git clone https://github.com/Darshan-RB/TASK-MANAGER.git
+cd TASK-MANAGER
+
 ```
 
 ### 2. Set up Environment Variables
