@@ -47,7 +47,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Middleware
 app.use(cors({
-  origin: 'http://todotaskbucket.s3-website.ap-south-1.amazonaws.com', // or specify exact domain like 'http://todotaskbucket.s3-website.ap-south-1.amazonaws.com'
+  origin: 'http://todotaskbucket.s3-website.ap-south-1.amazonaws.com', 
   credentials: true,
 }));
 
